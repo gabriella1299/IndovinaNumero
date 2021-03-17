@@ -70,16 +70,24 @@ public class FXMLController {
 
     	this.txtTentativoUtente.setText("");
     	
-    	int result = 0;
+    	int result;
     	
     	try{
+    		
     		result=this.model.tentativo(tentativo);
+    		
     	}catch(IllegalStateException se) {
     		this.txtRisultato.setText(se.getMessage());
+    		this.txtTentativi.setText("0");
     		this.layoutTentativo.setDisable(true);
+    		return;
+    		
     	}catch(InvalidParameterException pe) {
     		this.txtRisultato.setText(pe.getMessage());
+    		return;
+    		
     	}
+    	
     	this.txtTentativi.setText(Integer.toString(this.model.getTMAX()-this.model.getTentativiFatti()));
     	
     	if(result==0) {
